@@ -2,34 +2,34 @@
 
 ## Installation Instructions
 
-1. Setup your environment
+#### Setup your environment
 
 - Sign up for a Spring '19 pre-release org and enable Dev Hub
 - Install the pre-release version of the Salesforce CLI
 - Install Visual Studio Code
 - Install the Visual Studio Code Salesforce extensions
 
-2. Clone this repository
+#### Clone this repository
 
 ```
 git clone git@github.com:agentgill/spring19-unlockedpackages.git
 ```
 
-3. CD into new directory
+CD into new directory
 
-4. Set sfdx defaultuser to be your source / production org
+Set sfdx defaultuser to be your source / production org
 
 ```
 sfdx force:config:set defaultusername=xxx
 ```
 
-5. Edit sfdx-project.json and set the path for your first package (e.g application-package) -
+Edit sfdx-project.json and set the path for your first package (e.g application-package) -
 
 ```
 {
   "packageDirectories": [
     {
-      "path": "application-package",
+      "path": "application-events-package",
       "default": true
     }
   ],
@@ -39,13 +39,30 @@ sfdx force:config:set defaultusername=xxx
 }
 ```
 
-6. mkdir which matches path from step 5 (e.g. application-package)
+mkdir which matches path from step 5 (e.g. application-package)
 
-## Create your package metadata source
+```
+  mkdir application-events-package
+```  
 
-7. Pull packaging source metadata locally
+## Getting Package Source
 
-Easy way to build your package.xml using a simple python script
+**Understanding the org Dependencies**
+- In Salesforce > Setup > Package Manager > New
+- Select changes which you intend to package
+- Try starting with central objects (Application_Event__c) or an App (Application Events)
+
+*Tip - this will help you indentify and understand dependencies* 
+
+**Pull packaging source locally**
+
+In order to create your unlocked package you need to pull the source locally.
+
+**Pull down unmanaged package created previously**
+
+- 
+
+**Use Python Script & CSV**
 
 - Add list of items to scripts/Build.csv
 - Run following bash script
@@ -54,14 +71,13 @@ Easy way to build your package.xml using a simple python script
 . pull.sh
 ```
 
-- this will out to manifest/package.xml
+This will output to here manifest/package.xml
 
-Alternative ways to generate your package.xml file
+#IDE & Tools
 
 - Use an IDE like **Illuiminated Cloud**
 - Use an online app like [Package Builder](https://packagebuilder.herokuapp.com/)
-
-If you are metadata magician, you can grab lots metadata like this:
+- Salesforce SFDX CLI
 
 ```
 sfdx force:source:retrieve -m CustomObject,Layout
