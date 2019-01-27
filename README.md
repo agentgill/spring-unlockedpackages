@@ -29,7 +29,7 @@ Edit sfdx-project.json and set the path for your first package (e.g application-
 {
   "packageDirectories": [
     {
-      "path": "application-events-package",
+      "path": "<UnlockedPackageFolder>",
       "default": true
     }
   ],
@@ -42,13 +42,13 @@ Edit sfdx-project.json and set the path for your first package (e.g application-
 mkdir which matches path from step 5 (e.g. application-package)
 
 ```
-  mkdir application-events-package
+  mkdir <UnlockedPackageFolder>
 ```  
 
-## Getting Package Source
+## Preparing Unlocked Package Source
 
-**Understanding the org Dependencies**
-- In Salesforce > Setup > Package Manager > New
+**Understanding Org Dependencies**
+- In Salesforce > Setup > Package Manager > New Unmanged Package
 - Select changes which you intend to package
 - Try starting with central objects (Application_Event__c) or an App (Application Events)
 
@@ -56,16 +56,24 @@ mkdir which matches path from step 5 (e.g. application-package)
 
 **Pulling Packaging source locally**
 
-In order to create your unlocked package you need to pull the source down locally.
+In order to create your Unlocked Package you need  pull the source down locally and convert it to DX.
 
 **Pull down unmanaged package created previously from the Salesforce UI**
 
 ```
-sfdx force:mdapi:retrieve -p Application-Events-Dependency -u source -r  .
+sfdx force:mdapi:retrieve -p <UnmanagedPackageName> -u source -r  .
 unzip unpackage.zip
 ```
 
-This will unzip the contents into a folder based on the name of Package (e.g. Application-Events-Dependency)
+Next convert the unzipped source into the the DX source format using the following command
+
+```
+sfdx force:mdapi:convert -r <UnzipedFolder> -d <UnlockedPackageFolder>
+```
+
+You are ready to create unlocked package from here...
+
+### Alternative ways to get package source
 
 **Use Python Script & CSV**
 
