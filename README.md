@@ -54,13 +54,18 @@ mkdir which matches path from step 5 (e.g. application-package)
 
 *Tip - this will help you indentify and understand dependencies* 
 
-**Pull packaging source locally**
+**Pulling Packaging source locally**
 
-In order to create your unlocked package you need to pull the source locally.
+In order to create your unlocked package you need to pull the source down locally.
 
-**Pull down unmanaged package created previously**
+**Pull down unmanaged package created previously from the Salesforce UI**
 
-- 
+```
+sfdx force:mdapi:retrieve -p Application-Events-Dependency -u source -r  .
+unzip unpackage.zip
+```
+
+This will unzip the contents into a folder based on the name of Package (e.g. Application-Events-Dependency)
 
 **Use Python Script & CSV**
 
@@ -71,13 +76,16 @@ In order to create your unlocked package you need to pull the source locally.
 . pull.sh
 ```
 
-This will output to here manifest/package.xml
+This will output to the manifest/package.xml
 
-#IDE & Tools
+**IDE & Tools**
 
 - Use an IDE like **Illuiminated Cloud**
 - Use an online app like [Package Builder](https://packagebuilder.herokuapp.com/)
-- Salesforce SFDX CLI
+
+**Salesforce CLI**
+
+Use the source retrieve command to bring down source
 
 ```
 sfdx force:source:retrieve -m CustomObject,Layout
@@ -97,7 +105,7 @@ Let's create our package using the source from the path specificed in the sfdx-p
 -t type of package e.g. unlocked  
 
 ```
-sfdx force:package:create -v play -r application-package -n application-package -e -d "application package" -t unlocked
+sfdx force:package:create -v source -r application-package -n application-package -e -d "application package" -t unlocked
 ```
 
 Review the sfdx-project.json for details of package
@@ -113,7 +121,7 @@ Let's create an installable version of our package
 -v our packaging org  
 
 ```
-sfdx force:package:version:create -p application-package -d application-package -x --wait 10 -v play
+sfdx force:package:version:create -p application-events -d application-events -x --wait 10 -v source
 ```
 
 Review the sfdx-project.json for details of package version
